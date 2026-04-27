@@ -5,15 +5,13 @@ GIT
   specs:
     faraday (2.9.0)
       faraday-net_http (>= 2.0, < 3.2)
-      ruby2_keywords (>= 0.0.4)
 
 GEM
   remote: https://rubygems.org/
   specs:
     faraday-net_http (3.0.2)
     multi_json (1.15.0)
-    rack (3.0.10)
-    ruby2_keywords (0.0.5)
+    rack (3.2.6)
 
 PLATFORMS
   arm64-darwin
@@ -29,4 +27,4 @@ RUBY VERSION
    ruby 3.2.0p0
 
 BUNDLED WITH
-   2.5.3
+   2.7.2
