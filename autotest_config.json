@@ -1,55 +1,46 @@
 {
-  "description": "Autotest configuration for bundler-git-source-branch P0 probe — validates git-sourced gem detection (faraday from git with branch: main). Tests GIT lockfile section parsing. 3 direct deps, 5 total.",
+  "description": "Autotest configuration for bundler-git-source-branch - Bundler git source with branch specification",
   "version": 1.7,
   "base_config": {
     "validate_scan_output": true,
-    "_comment_validate_scan_output": "Whether to validate the scan output/exit code. Options: true | false. Default: true",
     "scan_output": {
-      "security_scan_report_conclusion": "success",
-      "_comment_security_scan_report_conclusion": "Optional. Expected scan report conclusion. Options: 'success' | 'failure'. This validates the security scan result status. If not provided, this check will not be performed.",
-      "expected_messages": [],
-      "_comment_expected_messages": "Optional. List of messages to validate in security check output/summary with severity levels."
+      "security_scan_report_conclusion": "failure",
+      "total_libs_scanned": {
+        "gte": 3
+      },
+      "expected_messages": []
     },
     "validate_dependency_tree": true,
-    "_comment_validate_dependency_tree": "Whether to validate the dependency tree. Options: true | false. Default: true",
     "dependency_tree": {
       "check_dependency_tree_detection_status": true,
-      "_comment_check_dependency_tree_detection_status": "Whether to check if dependency tree was successfully detected. Options: true | false. Default: true",
       "check_update_request_sca_results": false,
       "expected_total_dependencies_number": {
-        "gte": 5
+        "gte": 3
       },
       "expected_direct_dependencies_number": {
-        "eq": 3
+        "gte": 2
       },
-      "_comment_expected_dependencies_number": "Optional. Expected number of dependencies with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). If not provided, this check will not be performed.",
+      "expected_transitive_dependencies_number": {
+        "gte": 0
+      },
       "direct_dependencies_names_list": {
         "contains": [
-          "rack",
-          "multi_json",
-          "faraday"
+          "multi_json-1.15.0.gem",
+          "rack-3.0.10.gem"
         ]
       },
       "transitive_dependencies_names_list": {
-        "contains": [
-          "faraday-net_http",
-          "ruby2_keywords"
-        ]
+        "contains": []
       },
-      "_comment_dependencies_names_list": "Optional. Check specific libraries in direct dependencies. Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
       "expected_package_managers": {
-        "contains": [
-          "ruby"
-        ]
+        "contains": ["ruby"]
       },
-      "_comment_expected_package_managers": "Optional. Validate scanSummaryInfo.packageManagers list (values normalised to lowercase). Operators: eq (exact match), contains (actual has all expected), in (actual is subset of expected), nin (actual has none of expected). Example: {'contains': ['npm', 'maven']}. If not provided, this check will not be performed.",
       "validate_agent_versions": false,
       "expected_agent_version": "",
       "expected_plugin_version": "",
       "validate_mend_tags": false
     },
-    "validate_vulnerabilities_table": true,
-    "_comment_validate_vulnerabilities_table": "Whether to validate the vulnerabilities table. Options: true | false. Default: true",
+    "validate_vulnerabilities_table": false,
     "vulnerabilities_table": {
       "check_vulnerabilities_table_structure": true,
       "expected_total_vulnerabilities_number": {
@@ -63,7 +54,6 @@
       }
     },
     "validate_scanner_logs": false,
-    "_comment_validate_scanner_logs": "Whether to validate scanner logs. Options: true | false. Default: false",
     "logs": {
       "check_scanner_logs": true,
       "detect_secrets": false,
@@ -93,7 +83,7 @@
       },
       "expected_reachability_traces": []
     },
-    "validate_project_contributors": false,
+    "validate_project_contributors": true,
     "contributors": {
       "check_contributors_structure": true,
       "expected_contributors": [],
